@@ -13,46 +13,69 @@ class _MoviesInformationState extends State<MoviesInformation> {
   final MovieService _movieService = MovieService();
   int _page = 1;
   final List<dynamic> _allMovies = [];
+  bool _isLoading = false;
+  bool _hasError = false;
 
   @override
   void initState() {
     super.initState();
-    _fetchMoreMovies();
+    _fetchMovies();
   }
 
-  Future<void> _fetchMoreMovies() async {
+  Future<void> _fetchMovies() async {
+    setState(() {
+      _isLoading = true;
+      _hasError = false;
+    });
+
     try {
       final movies = await _movieService.fetchMovies(page: _page);
       setState(() {
         _allMovies.addAll(movies);
         _page++;
       });
-    } catch (e) {
-      // Handle error
+    } catch (error) {
+      setState(() {
+        _hasError = true;
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_hasError) {
+      return const Center(child: Text('Failed to load movies'));
+    }
+
+    if (_isLoading && _allMovies.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_allMovies.isEmpty) {
+      return const Center(child: Text('No movies found'));
+    }
+
     return ListView.builder(
-      itemCount: _allMovies.length + 1,
+      itemCount: _allMovies.length,
       itemBuilder: (context, index) {
-        if (index == _allMovies.length) {
-          // Load more button
-          return ElevatedButton(
-            onPressed: _fetchMoreMovies,
-            child: const Text('Load More'),
-          );
-        }
         final movie = _allMovies[index];
+
         return ListTile(
-          leading: Image.network('https://image.tmdb.org/t/p/w500${movie['poster_path']}'),
-          title: Text(movie['title']),
-          subtitle: Text(movie['release_date']),
+          leading: Image.network(
+              'https://image.tmdb.org/t/p/w500${movie['poster_path'] ?? ''}'),
+          title: Text(movie['title'] ?? 'No title available'),
+          subtitle: Text('Release Date: ${movie['release_date'] ?? 'Unknown'}'),
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => MovieDetailsPage(movieId: movie['id']),
-            ));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MovieDetailsPage(movieId: movie['id']),
+              ),
+            );
           },
         );
       },

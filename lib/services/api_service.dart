@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MovieService {
   final String _baseUrl = 'https://api.themoviedb.org/3';
-  final String _apiKey = '26a71d48ab8439c4c1289404c0e2688f';
+  final String _apiKey = dotenv.env['API_KEY']!;
 
   Future<List<dynamic>> fetchMovies({int page = 1}) async {
     final response = await http.get(Uri.parse('$_baseUrl/movie/popular?api_key=$_apiKey&page=$page'));
-    
+
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return data['results'];
@@ -18,7 +19,7 @@ class MovieService {
 
   Future<Map<String, dynamic>> fetchMovieDetails(int movieId) async {
     final response = await http.get(Uri.parse('$_baseUrl/movie/$movieId?api_key=$_apiKey&append_to_response=videos'));
-    
+
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return data;
@@ -29,7 +30,7 @@ class MovieService {
 
   Future<List<dynamic>> fetchMovieActors(int movieId) async {
     final response = await http.get(Uri.parse('$_baseUrl/movie/$movieId/credits?api_key=$_apiKey'));
-    
+
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return data['cast'];
@@ -40,11 +41,11 @@ class MovieService {
 
   Future<String?> fetchMovieTrailerKey(int movieId) async {
     final response = await http.get(Uri.parse('$_baseUrl/movie/$movieId/videos?api_key=$_apiKey'));
-    
+
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<dynamic> videos = data['results'];
-      
+
       final trailer = videos.firstWhere(
         (video) => video['type'] == 'Trailer' && video['site'] == 'YouTube',
         orElse: () => null,
