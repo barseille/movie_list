@@ -34,10 +34,10 @@ dependencies:
 
   flutter_dotenv: ^5.1.0
   # connecter la base de données Firebase
-  firebase_core: ^3.0.0
+  # firebase_core: ^3.0.0
 
   # manipuler les données dans firebase
-  cloud_firestore: ^5.0.0
+  # cloud_firestore: ^5.0.0
 
   http: ^1.2.1
   multi_select_flutter: ^4.1.3

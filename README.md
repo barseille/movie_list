@@ -22,9 +22,14 @@ Ces dépendances seront automatiquement installées lors de l'exécution de la c
 
 ## Captures d'écran
 
+![Capture d'écran 1](assets/images/1.png)
+![Capture d'écran 2](assets/images/2.png)
+![Capture d'écran 3](assets/images/3.png)
+
 ## Technologies Utilisées
-- Framework : Flutter
-- Langage : Dart
+
+- **Framework :** Flutter
+- **Langage :** Dart
 
 ## Installation
 
@@ -36,18 +41,17 @@ Ces dépendances seront automatiquement installées lors de l'exécution de la c
 ### Cloner le projet depuis GitHub :
 ```
 https://github.com/barseille/movie_list.git
-
 ```
 
 ### Installer les dépendances :
 ```
 flutter pub get
-
 ```
 
-### Installer les dépendances :
+### Exécuter l'application :
+
+Lancez l'application sur un émulateur ou un appareil réel :
 ```
 flutter run
-
 ```
 
