@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Retourne un MaterialApp, qui est la structure de base de l'application.
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       // Titre de l'application.
       title: 'Movies List',
       // Thème de l'application avec une couleur de base teal (bleu-vert).
