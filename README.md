@@ -2,13 +2,13 @@
 
 ## À Propos du Projet
 
-Movie List est une application mobile développée en Flutter, conçue pour interagir avec une API de films. L'application affiche une liste de films provenant d'une API et permet aux utilisateurs de consulter les détails de chaque film, y compris les bandes-annonces vidéo.
+Movie List est une application mobile développée en Flutter, conçue pour interagir avec une API de films. L'application affiche une liste de films provenant d'une API et permet aux utilisateurs de consulter les détails de chaque film (année, description, noms des acteurs proncipaux, note), y compris les bandes-annonces vidéo.
 
 ## Fonctionnalités Clés
 
 - **Liste de Films :** Affichage d'une liste de films obtenus via une API.
 - **Détails des Films :** Affichage des détails de chaque film, y compris la bande-annonce et les acteurs principaux.
-- **Notation des Films :** Possibilité de noter les films avec des étoiles.
+- **Notation des Films :** Note des films avec des étoiles obtenus via l'API.
 
 ## Dépendances Externes
 
@@ -41,11 +41,13 @@ Ces dépendances seront automatiquement installées lors de l'exécution de la c
 
 
 ### Cloner le projet depuis GitHub :
+
 ```
 https://github.com/barseille/movie_list.git
 ```
 
 ### Installer les dépendances :
+
 ```
 flutter pub get
 ```
